@@ -7,7 +7,10 @@ module.exports = function(grunt) {
 				dest: {
 					buildFile: 'tmp/hello-world.min.js',
 					mapFile: 'tmp/hello-world.min.json',
-					mapName: 'hello-world.min.json'
+				},
+				minifyifyOptions: {
+					map: 'hello-world.min.json',
+					compressPath: 'test/fixtures'
 				}
 			}]
 		}

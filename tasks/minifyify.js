@@ -1,6 +1,7 @@
 var fs = require('fs');
 var async = require('async');
 var browserify = require('browserify');
+var minifyify = require('minifyify');
 
 module.exports = function (grunt) {
 	grunt.registerMultiTask(
@@ -10,7 +11,7 @@ module.exports = function (grunt) {
 			async.eachSeries(this.data, function(file, done) {
 				var bundler = new browserify({debug: true});
 				bundler.add(file.src);
-				bundler.plugin('minifyify', {map: file.dest.mapName});
+				bundler.plugin(minifyify, file.minifyifyOptions);
 				bundler.bundle(function(err, src, map) {
 					if (err) {
 						done(err);
