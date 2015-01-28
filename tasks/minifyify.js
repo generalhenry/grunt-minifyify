@@ -1,4 +1,5 @@
 var fs = require('fs');
+var _ = require('underscore');
 var async = require('async');
 var browserify = require('browserify');
 var minifyify = require('minifyify');
@@ -9,7 +10,9 @@ module.exports = function (grunt) {
 		'Produces minified bundles with source maps.',
 		function() {
 			async.eachSeries(this.data, function(file, done) {
-				var bundler = new browserify({debug: true});
+				var bundler = new browserify(_.extend({
+					debug: true
+				}, file.browserifyOptions));
 				bundler.add(file.src);
 				bundler.plugin(minifyify, file.minifyifyOptions);
 				bundler.bundle(function(err, src, map) {
