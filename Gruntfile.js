@@ -3,14 +3,16 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		minifyify: {
 			files: [{
-				src: './test/fixtures/hello-world.js',
+				add: './hello-world.js',
 				dest: {
 					buildFile: 'tmp/hello-world.min.js',
 					mapFile: 'tmp/hello-world.min.json',
 				},
 				minifyifyOptions: {
-					map: 'hello-world.min.json',
-					compressPath: 'test/fixtures'
+					map: 'hello-world.min.json'
+				},
+				browserifyOptions: {
+					basedir: 'test/fixtures'
 				}
 			}]
 		}
