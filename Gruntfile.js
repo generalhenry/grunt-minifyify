@@ -3,6 +3,10 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		minifyify: {
 			files: [{
+				ignore: ['grunt', 'grunt-cli'],
+				exclude: ['browserify', 'minifyify'],
+				external: 'chalk',
+				require: 'async',
 				add: './hello-world.js',
 				dest: {
 					buildFile: 'tmp/hello-world.min.js',
