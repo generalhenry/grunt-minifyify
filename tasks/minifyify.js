@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 		'minifyify',
 		'Produces minified bundles with source maps.',
 		function() {
-			async.eachSeries(this.data, function(file, done) {
+			async.eachSeries(this.files, function(file, done) {
 				var bundler = new browserify(_.extend({
 					debug: true
 				}, file.browserifyOptions));
@@ -28,9 +28,8 @@ module.exports = function (grunt) {
 					}
 				});
 				if (file.src) {
-					console.log(chalk.yellow('[WARNING]'),
-						'file.src is deprecated.',
-						'Use file.add instead.');
+					grunt.fail.warn(new Error('file.src is deprecated.' +
+						'Use file.add instead.'));
 					bundler.add(file.src);
 				}
 				bundler.plugin(minifyify, file.minifyifyOptions);
