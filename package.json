@@ -4,7 +4,7 @@
   "description": "Grunt plugin to produce minified source and source maps with browserify and minifyify.",
   "main": "tasks/minifyify.js",
   "scripts": {
-    "test": "grunt minifyify && mocha"
+    "test": "rm -rf tmp && grunt minifyify && mocha"
   },
   "keywords": [
     "grunt",

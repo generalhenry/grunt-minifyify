@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 var _ = require('underscore');
 var async = require('async');
 var chalk = require('chalk');
@@ -10,6 +11,40 @@ module.exports = function (grunt) {
 		'minifyify',
 		'Produces minified bundles with source maps.',
 		function() {
+			console.log('yolo', this.options());
+			var options = this.options({});
+			var data = this.data;
+			var minifiedExt = data.minifiedExt || options.minifiedExt;
+			var mapExt = data.mapExt || options.mapExt;
+			var inputFolder = data.inputFolder || options.inputFolder;
+			var outputFolder = data.outputFolder || options.outputFolder;
+			if (data.name) {
+				var file = {};
+				[
+					'browserifyOptions',
+					'minifyifyOptions'
+				].forEach(function (name) {
+					file[name] = _.extend({}, data[name], options[name]);
+				});
+				[
+					'ignore',
+					'exclude',
+					'external',
+					'require',
+					'add'
+				].forEach(function (type) {
+					file[type] = [].concat(data[type] || []).concat(options[type] || []);
+				});
+				file.add.push('./' + path.join(inputFolder, data.entryFile || data.name) + '.js');
+				file.minifyifyOptions.map = data.name + mapExt;
+				file.minifyifyOptions.compressPath = outputFolder;
+				file.dest = {
+					buildFile: path.join(outputFolder, data.name) + minifiedExt,
+					mapFile: path.join(outputFolder, data.name) + mapExt
+				};
+				console.log(file);
+				this.files.push(file);
+			}
 			async.eachSeries(this.files, function(file, done) {
 				var bundler = new browserify(_.extend({
 					debug: true
