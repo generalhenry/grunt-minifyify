@@ -13,8 +13,8 @@ module.exports = function (grunt) {
 		function() {
 			var options = this.options({});
 			var data = this.data;
-			var minifiedExt = data.minifiedExt || options.minifiedExt;
-			var mapExt = data.mapExt || options.mapExt;
+			var minifiedExt = data.minifiedExt || options.minifiedExt || '.min.js';
+			var mapExt = data.mapExt || options.mapExt || '.min.json';
 			var inputFolder = data.inputFolder || options.inputFolder;
 			var outputFolder = data.outputFolder || options.outputFolder;
 			if (data.name) {
@@ -41,7 +41,6 @@ module.exports = function (grunt) {
 					buildFile: path.join(outputFolder, data.name) + minifiedExt,
 					mapFile: path.join(outputFolder, data.name) + mapExt
 				};
-				console.log(file);
 				this.files.push(file);
 			}
 			async.eachSeries(this.files, function(file, done) {
