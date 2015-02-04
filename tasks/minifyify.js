@@ -11,7 +11,6 @@ module.exports = function (grunt) {
 		'minifyify',
 		'Produces minified bundles with source maps.',
 		function() {
-			console.log('yolo', this.options());
 			var options = this.options({});
 			var data = this.data;
 			var minifiedExt = data.minifiedExt || options.minifiedExt;
