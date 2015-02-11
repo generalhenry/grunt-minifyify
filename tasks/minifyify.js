@@ -73,6 +73,7 @@ module.exports = function (grunt) {
 						grunt.file.write(file.dest.buildFile, src);
 						grunt.file.write(file.dest.mapFile, map)
 						grunt.log.ok('Minifyified ' + file.dest.buildFile + ', ' + file.dest.mapFile);
+						done();
 					}
 				});
 			}, this.async());
