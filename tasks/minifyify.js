@@ -57,7 +57,9 @@ module.exports = function (grunt) {
 					'transform'
 				].forEach(function (type) {
 					if (Array.isArray(file[type])) {
-						file[type].forEach(bundler[type], bundler);
+						file[type].forEach(function(object) {
+							bundler[type](object);
+						});
 					} else if (file[type]) {
 						bundler[type](file[type]);
 					}
