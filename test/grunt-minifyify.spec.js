@@ -12,4 +12,8 @@ describe('grunt minifyify', function() {
 	it('should produce a sourcemap', function(done) {
 		fs.readFile(map, done);
 	});
+	it('should say hi', function() {
+		require(helloWorldMin);
+		assert.equal(global.hello(), 'hello world');
+	});
 });

@@ -1,3 +1,4 @@
+var brfs = require('brfs');
 module.exports = function(grunt) {
 	'use strict';
 	grunt.initConfig({
@@ -5,7 +6,8 @@ module.exports = function(grunt) {
 			test: {
 				inputFolder: 'test/fixtures',
 				entryFile: 'hello-world',
-				name: 'hello-world'
+				name: 'hello-world',
+				transform: brfs
 			},
 			options: {
 				ignore: ['grunt', 'grunt-cli'],

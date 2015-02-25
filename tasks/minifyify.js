@@ -5,7 +5,6 @@ var async = require('async');
 var chalk = require('chalk');
 var browserify = require('browserify');
 var minifyify = require('minifyify');
-var aliasify = require('aliasify');
 
 module.exports = function (grunt) {
 	grunt.registerMultiTask(
@@ -18,7 +17,6 @@ module.exports = function (grunt) {
 			var mapExt = data.mapExt || options.mapExt || '.min.json';
 			var inputFolder = data.inputFolder || options.inputFolder;
 			var outputFolder = data.outputFolder || options.outputFolder;
-			var aliasifyOptions = _.extend({}, options.aliasifyOptions, data.aliasifyOptions);
 			if (data.name) {
 				var file = {};
 				[
@@ -32,7 +30,8 @@ module.exports = function (grunt) {
 					'exclude',
 					'external',
 					'require',
-					'add'
+					'add',
+					'transform'
 				].forEach(function (type) {
 					file[type] = [].concat(data[type] || []).concat(options[type] || []);
 				});
@@ -54,7 +53,8 @@ module.exports = function (grunt) {
 					'exclude',
 					'external',
 					'require',
-					'add'
+					'add',
+					'transform'
 				].forEach(function (type) {
 					if (Array.isArray(file[type])) {
 						file[type].forEach(bundler[type], bundler);
@@ -68,9 +68,6 @@ module.exports = function (grunt) {
 					bundler.add(file.src);
 				}
 				bundler.plugin(minifyify, file.minifyifyOptions);
-				if (aliasifyOptions.aliases) {
-					bundler.transform(aliasify.configure(aliasifyOptions));
-				}
 				bundler.bundle(function(err, src, map) {
 					if (err) {
 						done(err);
