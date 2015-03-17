@@ -1,6 +1,6 @@
 {
   "name": "grunt-minifyify",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Grunt plugin to produce minified source and source maps with browserify and minifyify.",
   "main": "tasks/minifyify.js",
   "scripts": {
