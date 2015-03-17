@@ -65,8 +65,8 @@ module.exports = function (grunt) {
 						bundler[type](file[type]);
 					}
 				});
-				if (Array.isArray(file.globalTransform) {
-					file[type].forEach(function(object) {
+				if (Array.isArray(file.globalTransform)) {
+					file.globalTransform.forEach(function(object) {
 						bundler.transform(object, {
 							global: true
 						});
