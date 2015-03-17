@@ -31,7 +31,8 @@ module.exports = function (grunt) {
 					'external',
 					'require',
 					'add',
-					'transform'
+					'transform',
+					'globalTransform'
 				].forEach(function (type) {
 					file[type] = [].concat(data[type] || []).concat(options[type] || []);
 				});
@@ -64,6 +65,17 @@ module.exports = function (grunt) {
 						bundler[type](file[type]);
 					}
 				});
+				if (Array.isArray(file.globalTransform) {
+					file[type].forEach(function(object) {
+						bundler.transform(object, {
+							global: true
+						});
+					});
+				} else if (file.globalTransform) {
+					bundler.transform(file.globalTransform, {
+						global: true
+					})
+				}
 				if (file.src) {
 					grunt.fail.warn(new Error('file.src is deprecated.' +
 						'Use file.add instead.'));
